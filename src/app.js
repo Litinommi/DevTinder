@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 app.use("/text",(req,re)=>{
-    re.send("welcome World!!!!!!!!!!!!");
+    re.send("welcome World!!!!!!!!!!!");
 })
 
 app.listen(7777,()=>{
