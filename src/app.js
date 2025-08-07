@@ -1,13 +1,23 @@
-// Import the Express framework
 const express = require("express");
 
-// Create an instance of an Express application
 const app = express();
 
-app.use("/text",(req,re)=>{
-    re.send("welcome World!!!!!!!!!!!");
+app.get("/test",(req,res)=>{
+    res.send("request is GET");
+})
+
+app.post("/test",(req,res)=>{
+    res.send("request is POST");
+})
+
+app.patch("/test",(req,res)=>{
+    res.send("request is patch");
+})
+
+app.delete("/test",(req,res)=>{
+    res.send("request is delete")
 })
 
 app.listen(7777,()=>{
-    console.log("server is listening");
+    console.log("server is calling");
 })
