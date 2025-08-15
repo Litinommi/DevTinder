@@ -2,22 +2,24 @@ const express = require("express");
 
 const app = express();
 
-app.get("/test",(req,res)=>{
-    res.send("request is GET");
+const {adminAuth, userAuth} = require("./middlewares/auth")
+
+app.use("/admin",
+    adminAuth
+)
+
+
+app.use("/user/getAllUserData", userAuth,(req,res)=>{
+   res.send("user data responeded");
 })
 
-app.post("/test",(req,res)=>{
-    res.send("request is POST");
+app.use("/admin/getAllData",(req,res)=>{
+    res.send("All data is triggered");
 })
 
-app.patch("/test",(req,res)=>{
-    res.send("request is patch");
+app.use("/admin/deleteAdmin",(req,res)=>{
+    res.send("admin deleted");
 })
-
-app.delete("/test",(req,res)=>{
-    res.send("request is delete")
-})
-
 app.listen(7777,()=>{
     console.log("server is calling");
 })
