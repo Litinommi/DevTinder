@@ -1,25 +1,31 @@
 const express = require("express");
-
+const dbConnect = require("./configure/database");
 const app = express();
+const User = require("./models/user")
 
-const {adminAuth, userAuth} = require("./middlewares/auth")
-
-app.use("/admin",
-    adminAuth
-)
-
-
-app.use("/user/getAllUserData", userAuth,(req,res)=>{
-   res.send("user data responeded");
+app.post("/signup",async(req,res)=>{
+    const userData = new User({
+        "firstName": "Litin",
+        "secondName": "Ommi",
+        "emailId":"litin.ommi123@gmail.com",
+        "password":"naa estam",
+    })
+    try{
+        await userData.save();
+        res.send("stroed successfully");
+    }
+    catch(err){
+        res.send("error while saving"+ err.message);
+    }
 })
 
-app.use("/admin/getAllData",(req,res)=>{
-    res.send("All data is triggered");
+dbConnect().then(()=>{
+    console.log("database is connected")
+    app.listen(7777,()=>{
+        console.log("server is calling");
+    })
+}
+).catch(err=>{
+    console.log("database not connected")
 })
 
-app.use("/admin/deleteAdmin",(req,res)=>{
-    res.send("admin deleted");
-})
-app.listen(7777,()=>{
-    console.log("server is calling");
-})
