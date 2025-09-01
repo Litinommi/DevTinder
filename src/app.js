@@ -3,16 +3,14 @@ const dbConnect = require("./configure/database");
 const app = express();
 const User = require("./models/user")
 
+app.use(express.json())
+
 app.post("/signup",async(req,res)=>{
-    const userData = new User({
-        "firstName": "Litin",
-        "secondName": "Ommi",
-        "emailId":"litin.ommi123@gmail.com",
-        "password":"naa estam",
-    })
+    // added dynamic data from end user(i.e. postman,browser etc..)
+    const userData = new User(req.body)
     try{
         await userData.save();
-        res.send("stroed successfully");
+        res.send("stored successfully");
     }
     catch(err){
         res.send("error while saving"+ err.message);
